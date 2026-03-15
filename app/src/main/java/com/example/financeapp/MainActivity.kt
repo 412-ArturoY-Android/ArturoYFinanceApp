@@ -52,6 +52,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun HomeScreen (innerPadding: PaddingValues){
     val colors = MaterialTheme.colorScheme
+
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -109,6 +111,10 @@ fun HomeScreen (innerPadding: PaddingValues){
                 )
             }
         }
+
+        ///////
+
+
     }
 }
 

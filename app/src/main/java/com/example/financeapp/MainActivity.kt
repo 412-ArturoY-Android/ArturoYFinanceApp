@@ -11,13 +11,18 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
@@ -33,7 +38,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.financeapp.ui.theme.FinanceAppTheme
+import com.example.financeapp.ui.theme.Models.cards
+import com.example.financeapp.ui.theme.Models.transactions
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,8 +60,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun HomeScreen (innerPadding: PaddingValues){
     val colors = MaterialTheme.colorScheme
-
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -114,7 +120,49 @@ fun HomeScreen (innerPadding: PaddingValues){
 
         ///////
 
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(200.dp)
+                .padding(horizontal = 20.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxHeight()
+                    .clip(RoundedCornerShape(24.dp))
+                    .background(cards[0].colorFondo),
+                contentAlignment = Alignment.Center
+            ) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Icon(Icons.Default.Face, null, modifier = Modifier.size(30.dp), tint = colors.onBackground)
+                    Text(cards[0].titulo, fontWeight = FontWeight.Bold, color = colors.onBackground)
+                    Text("de la Semana", fontSize = 12.sp, color = colors.onSurfaceVariant)
+                }
+            }
 
+            Column(
+                modifier = Modifier.weight(1f).fillMaxHeight(),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                for (i in 1..2) {
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(24.dp))
+                            .background(cards[i].colorFondo),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text(cards[i].titulo, fontSize = 14.sp, color = colors.onSurfaceVariant)
+                            Text(cards[i].monto, fontWeight = FontWeight.Bold, fontSize = 18.sp, color = colors.onBackground)
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

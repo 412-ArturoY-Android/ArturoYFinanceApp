@@ -163,6 +163,66 @@ fun HomeScreen (innerPadding: PaddingValues){
                 }
             }
         }
+
+        // --- TÍTULO TRANSACCIONES ---
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(20.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text("Transactions", fontWeight = FontWeight.Bold, fontSize = 18.sp, color = colors.onBackground)
+            Text("See All", color = colors.onSurfaceVariant, fontSize = 14.sp)
+        }
+
+        //lista
+        LazyColumn(
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp),
+            contentPadding = PaddingValues(bottom = 20.dp)
+        ) {
+            items(transactions.size) { index ->
+                val item = transactions[index]
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(16.dp))
+                        .background(colors.surface)
+                        .padding(12.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Box(
+                        modifier = Modifier.size(40.dp).clip(CircleShape)
+                            .background(colors.onBackground),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            item.icon,
+                            null,
+                            tint = colors.background,
+                            modifier = Modifier.size(20.dp)
+                        )
+                    }
+                    Spacer(modifier = Modifier.width(12.dp))
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            item.establecimiento,
+                            fontWeight = FontWeight.Bold,
+                            color = colors.onBackground
+                        )
+                        Text(item.categoria, fontSize = 12.sp, color = colors.onSurfaceVariant)
+                    }
+                    Column(horizontalAlignment = Alignment.End) {
+                        val symbol = if (item.monto < 0) "-$" else "$"
+                        Text(
+                            "$symbol${Math.abs(item.monto)}",
+                            fontWeight = FontWeight.Bold,
+                            color = colors.onBackground
+                        )
+                        Text(item.hora, fontSize = 11.sp, color = colors.onSurfaceVariant)
+                    }
+                }
+            }
+        }
     }
 }
 
